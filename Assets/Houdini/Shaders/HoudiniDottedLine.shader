@@ -41,7 +41,7 @@ Shader "Houdini/DottedLine"
 				v2f vert( appdata v ) 
 				{
 					v2f o;
-					o.pos = mul( UNITY_MATRIX_MVP, v.pos );
+					o.pos = UnityObjectToClipPos( v.pos );
 					o.uv = TRANSFORM_TEX( v.uv, _MainTex );
 					return o;
 				}

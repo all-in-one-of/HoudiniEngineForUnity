@@ -1,5 +1,3 @@
-// Upgrade NOTE: replaced '_Object2World' with 'unity_ObjectToWorld'
-
 Shader "Houdini/VolumeSurface" {
 
 	Properties {
@@ -40,7 +38,7 @@ Shader "Houdini/VolumeSurface" {
 				{
 					v2f o;
 
-					o.pos = mul( UNITY_MATRIX_MVP, v.vertex );
+					o.pos = UnityObjectToClipPos( v.vertex );
 					o.color = float4( ShadeVertexLights( v.vertex, v.normal ) * 2.0, 1.0 ) * _Color;
 
 					float3 worldSpaceObjectPos = mul( v.vertex, unity_ObjectToWorld ).xyz;

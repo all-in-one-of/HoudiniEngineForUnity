@@ -32,7 +32,7 @@
 
 				v2f vert( appdata v ) {
 					v2f o;
-					o.pos = mul( UNITY_MATRIX_MVP, v.pos );
+					o.pos = UnityObjectToClipPos( v.pos );
 					o.size = _PointSize;
 					return o;
 				}
@@ -67,7 +67,7 @@
 
 				v2f vert( appdata v ) {
 					v2f o;
-					o.pos = mul( UNITY_MATRIX_MVP, v.pos );
+					o.pos = UnityObjectToClipPos( v.pos );
 					o.colour = v.colour;
 					o.size = _PointSize;
 					return o;

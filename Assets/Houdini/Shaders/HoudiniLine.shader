@@ -30,7 +30,7 @@ Shader "Houdini/Line" {
 
 				v2f vert( appdata v ) {
 					v2f o;
-					o.pos = mul( UNITY_MATRIX_MVP, v.pos );
+					o.pos = UnityObjectToClipPos( v.pos );
 					o.colour = v.colour;
 					return o;
 				}
