@@ -144,7 +144,6 @@ public class HoudiniAssetOTL : HoudiniAsset
     public void SetTime(double time)
     {
         controlTime = (float)time;
-        Debug.Log(controlTime);
     }
 
 #endif // ( HAPI_ENABLE_RUNTIME && UNITY_2017_1_OR_NEWER )
