@@ -1267,7 +1267,8 @@ public abstract class HoudiniAsset : HoudiniObjectControl
 
 #if UNITY_EDITOR && UNITY_5_3_OR_NEWER
 		// Mark the scene dirty after we do a build to make sure the changes get saved
-		UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
+        if (!Application.isPlaying)
+		    UnityEditor.SceneManagement.EditorSceneManager.MarkSceneDirty(UnityEditor.SceneManagement.EditorSceneManager.GetActiveScene());
 #endif
 
 		return true;
