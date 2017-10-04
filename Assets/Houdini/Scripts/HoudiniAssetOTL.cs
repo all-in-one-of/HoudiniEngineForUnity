@@ -39,12 +39,19 @@ using UnityEngine;
 using UnityEditor;
 #endif // UNITY_EDITOR
 
+#if UNITY_2017_1_OR_NEWER
+using UnityEngine.Timeline;
+#endif
+
 using System.Runtime.InteropServices;
 using System.Collections;
 using System.Collections.Generic;
 
 [ ExecuteInEditMode ]
 public class HoudiniAssetOTL : HoudiniAsset 
+#if ( HAPI_ENABLE_RUNTIME && UNITY_2017_1_OR_NEWER )
+, ITimeControl
+#endif
 {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Public Properties
@@ -107,15 +114,40 @@ public class HoudiniAssetOTL : HoudiniAsset
 
 		if (
 #if UNITY_EDITOR
-			EditorApplication.isPlaying &&
+			( EditorApplication.isPlaying || controlTime >= 0 ) &&
 #endif // UNITY_EDITOR
 			prPlaymodePerFrameCooking )
 		{
-			HoudiniHost.setTime( Time.time );
+            if (controlTime >= 0)
+                HoudiniHost.setTime( controlTime );
+            else
+                HoudiniHost.setTime( Time.time );
 			buildClientSide();
 		}
 	}
 #endif // ( HAPI_ENABLE_RUNTIME )
+
+#if ( HAPI_ENABLE_RUNTIME && UNITY_2017_1_OR_NEWER )
+
+    float controlTime = -1;
+
+    public void OnControlTimeStart()
+    {
+        controlTime = 0;
+    }
+
+    public void OnControlTimeStop()
+    {
+        controlTime = -1;
+    }
+
+    public void SetTime(double time)
+    {
+        controlTime = (float)time;
+        Debug.Log(controlTime);
+    }
+
+#endif // ( HAPI_ENABLE_RUNTIME && UNITY_2017_1_OR_NEWER )
 
 	public override bool buildAll()
 	{
