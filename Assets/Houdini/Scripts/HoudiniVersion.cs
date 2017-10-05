@@ -28,7 +28,7 @@ public struct HoudiniVersion
 {
 	public const int HOUDINI_MAJOR			= 16;
 	public const int HOUDINI_MINOR			= 0;
-	public const int HOUDINI_BUILD			= 762;
+	public const int HOUDINI_BUILD			= 736;
 	public const int HOUDINI_PATCH			= 0;
 
 	public const int HOUDINI_ENGINE_MAJOR	= 3;
