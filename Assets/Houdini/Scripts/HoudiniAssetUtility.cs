@@ -2020,6 +2020,13 @@ public class HoudiniAssetUtility
 			}
 		}
 
+#if UNITY_2017_3_OR_NEWER
+		if (vertices.Length < ushort.MaxValue)
+			mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt16;
+		else
+			mesh.indexFormat = UnityEngine.Rendering.IndexFormat.UInt32;
+#endif // UNITY_2017_3_OR_NEWER
+
 		// Set known mesh data.
 		mesh.vertices = vertices;
 		mesh.triangles = triangles;
