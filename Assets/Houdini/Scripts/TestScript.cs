@@ -49,16 +49,28 @@ public class TestScript : MonoBehaviour
 		value = 1;
 		prArr = null;
 
+#if UNITY_2017_2_OR_NEWER
+		EditorApplication.playModeStateChanged += playModeStateChanged;
+#else
 		EditorApplication.playmodeStateChanged += playmodeStateChanged;
+#endif // UNITY_2017_2_OR_NEWER
 	}
 	
 	~TestScript()
 	{
 		//Debug.Log( "TestScript: DESTRUCTOR - " + value );
+#if UNITY_2017_2_OR_NEWER
+		EditorApplication.playModeStateChanged -= playModeStateChanged;
+#else
 		EditorApplication.playmodeStateChanged -= playmodeStateChanged;
+#endif // UNITY_2017_2_OR_NEWER
 	}
 	
+#if UNITY_2017_2_OR_NEWER
+	public void playModeStateChanged(PlayModeStateChange state)
+#else
 	public void playmodeStateChanged()
+#endif // UNITY_2017_2_OR_NEWER
 	{
 		Debug.Log( "TestScript: playmodeStateChanged - " + EditorApplication.isPlayingOrWillChangePlaymode );
 	}

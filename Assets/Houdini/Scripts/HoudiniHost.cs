@@ -200,7 +200,11 @@ public static partial class HoudiniHost
 
 #if UNITY_EDITOR
 		EditorApplication.update				+= update;
+#if UNITY_2017_2_OR_NEWER
+		EditorApplication.playModeStateChanged	+= playModeStateChanged;
+#else
 		EditorApplication.playmodeStateChanged	+= playmodeStateChanged;
+#endif // UNITY_2017_2_OR_NEWER
 		EditorApplication.hierarchyWindowItemOnGUI += hierarchyWindowItemOnGUI;
 		SceneView.onSceneGUIDelegate			+= onSceneGUIDelegate;
 #endif // UNITY_EDITOR
@@ -1046,7 +1050,11 @@ public static partial class HoudiniHost
 #endif // UNITY_EDITOR
 	}
 
+#if UNITY_2017_2_OR_NEWER
+	private static void playModeStateChanged(PlayModeStateChange state)
+#else
 	private static void playmodeStateChanged()
+#endif // UNITY_2017_2_OR_NEWER
 	{
 #if UNITY_EDITOR && ( HAPI_ENABLE_RUNTIME )
 		// We need to catch any exceptions here because if we let any out they will stall

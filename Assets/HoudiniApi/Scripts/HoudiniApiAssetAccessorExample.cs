@@ -59,7 +59,11 @@ public class HoudiniApiAssetAccessorExample : MonoBehaviour
 	{
 		//Debug.Log( "HoudiniApiAssetAccessorExample: CONSTRUCTOR" );
 #if UNITY_EDITOR
+#if UNITY_2017_2_OR_NEWER
+		EditorApplication.playModeStateChanged += playModeStateChanged;
+#else
 		EditorApplication.playmodeStateChanged += playmodeStateChanged;
+#endif // UNITY_2017_2_OR_NEWER
 #endif // UNITY_EDITOR
 	}
 	
@@ -67,11 +71,19 @@ public class HoudiniApiAssetAccessorExample : MonoBehaviour
 	{
 		//Debug.Log( "HoudiniApiAssetAccessorExample: DESTRUCTOR" );
 #if UNITY_EDITOR
+#if UNITY_2017_2_OR_NEWER
+		EditorApplication.playModeStateChanged -= playModeStateChanged;
+#else
 		EditorApplication.playmodeStateChanged -= playmodeStateChanged;
+#endif // UNITY_2017_2_OR_NEWER
 #endif // UNITY_EDITOR
 	}
 	
+#if UNITY_2017_2_OR_NEWER
+	public void playModeStateChanged(PlayModeStateChange state)
+#else
 	public void playmodeStateChanged()
+#endif // UNITY_2017_2_OR_NEWER
 	{
 		//Debug.Log( "HoudiniApiAssetAccessorExample: playmodeStateChanged - " + EditorApplication.isPlayingOrWillChangePlaymode );
 	}

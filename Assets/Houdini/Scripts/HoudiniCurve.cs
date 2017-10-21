@@ -95,7 +95,11 @@ public class HoudiniCurve : MonoBehaviour
 	public HoudiniCurve() 
 	{
 #if UNITY_EDITOR
+#if UNITY_2017_2_OR_NEWER
+		EditorApplication.playModeStateChanged += playModeStateChanged;
+#else
 		EditorApplication.playmodeStateChanged += playmodeStateChanged;
+#endif // UNITY_2017_2_OR_NEWER
 #endif // UNITY_EDITOR
 		reset();
 	}
@@ -103,7 +107,11 @@ public class HoudiniCurve : MonoBehaviour
 	~HoudiniCurve()
 	{
 #if UNITY_EDITOR
+#if UNITY_2017_2_OR_NEWER
+		EditorApplication.playModeStateChanged -= playModeStateChanged;
+#else
 		EditorApplication.playmodeStateChanged -= playmodeStateChanged;
+#endif // UNITY_2017_2_OR_NEWER
 #endif // UNITY_EDITOR
 	}
 
@@ -485,7 +493,11 @@ public class HoudiniCurve : MonoBehaviour
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	// Private Methods
 
+#if UNITY_2017_2_OR_NEWER
+	private void playModeStateChanged(PlayModeStateChange state)
+#else
 	private void playmodeStateChanged()
+#endif // UNITY_2017_2_OR_NEWER
 	{
 		// In certain situations, sepcifically after loading a scene, the gameObject "function"
 		// may throw an exception here along the lines of:
